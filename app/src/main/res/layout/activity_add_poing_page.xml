@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.Add_Poing_Page">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/img_background"
+        android:alpha="0.6"
+        android:orientation="vertical">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/addPoint_LBL_addPoint"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="20dp"
+            android:autoSizeTextType="uniform"
+            android:text="Add Point"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textStyle="bold|italic"
+            tools:ignore="HardcodedText"
+            tools:targetApi="o"/>
+
+            <RadioGroup
+                android:id="@+id/addPoint_RAG_radiogroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatRadioButton
+                android:id="@+id/addPoint_RAB_private"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Private "
+                android:textColor="@color/black"
+                android:textSize="15dp"
+                android:layout_marginHorizontal="32dp"/>
+
+            <androidx.appcompat.widget.AppCompatRadioButton
+                android:id="@+id/addPoint_RAB_Public"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Public "
+                android:textColor="@color/black"
+                android:textSize="15dp"
+                android:layout_marginHorizontal="32dp"/>
+            </RadioGroup>
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/addPoint_EDT_pointName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="32dp"
+            android:layout_marginBottom="10dp"
+            android:textSize="24dp"
+            android:hint="Name of Point: "
+            android:textColor="@color/black"
+            android:textColorHint="@color/black" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/addPoint_EDT_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="32dp"
+            android:layout_marginBottom="10dp"
+            android:textSize="24dp"
+            android:hint="description: "
+            android:textColor="@color/black"
+            android:textColorHint="@color/black" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/addPoint_EDT_picture"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="32dp"
+            android:layout_marginBottom="20dp"
+            android:textSize="24dp"
+            android:hint="Pictures : "
+            android:textColor="@color/black"
+            android:textColorHint="@color/black" />
+
+<!--        <ImageView-->
+<!--            android:id="@+id/addPoint_IMV_image"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:src="@drawable/placeholder_image" />-->
+
+
+        <!--        Todo: change the edit text to pictures to add -->
+<!--        Todo: add location- choose on a map-->
+
+
+        <Spinner
+            android:id="@+id/addPoint_SPN_level"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="32dp"
+            android:layout_marginBottom="20dp"
+            android:textSize="35sp"
+            android:hint="level: "
+            android:popupBackground="#ACA4A4"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black"
+            android:entries="@array/levels"/>
+
+        <Spinner
+            android:id="@+id/addPoint_SPN_type"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="32dp"
+            android:layout_marginBottom="20dp"
+            android:textSize="35sp"
+            android:hint="type: "
+            android:popupBackground="#ACA4A4"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black"
+            android:entries="@array/types"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/addPoint_BTN_addPoint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="10dp"
+            android:text="Add point"
+            android:textAllCaps="false" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</RelativeLayout>
