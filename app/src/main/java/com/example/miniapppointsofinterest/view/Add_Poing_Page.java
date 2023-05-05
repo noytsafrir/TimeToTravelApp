@@ -4,15 +4,39 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatRadioButton;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 
 import com.example.miniapppointsofinterest.My_Screen_Utils;
+import com.example.miniapppointsofinterest.My_Signal;
 import com.example.miniapppointsofinterest.R;
+import com.example.miniapppointsofinterest.api.ObjectApi;
+import com.example.miniapppointsofinterest.api.RetrofitClient;
+import com.example.miniapppointsofinterest.api.UserApi;
+import com.example.miniapppointsofinterest.fragments.MapFragment;
+import com.example.miniapppointsofinterest.model.CurrentUser;
+import com.example.miniapppointsofinterest.model.object.CreatedBy;
+import com.example.miniapppointsofinterest.model.object.LocationBoundary;
+import com.example.miniapppointsofinterest.model.object.ObjectBoundary;
+import com.example.miniapppointsofinterest.model.user.UserBoundary;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.button.MaterialButton;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class Add_Poing_Page extends AppCompatActivity {
 
     private RadioGroup addPoint_RAG_radiogroup;
@@ -24,14 +48,33 @@ public class Add_Poing_Page extends AppCompatActivity {
     private Spinner addPoint_SPN_level;
     private Spinner addPoint_SPN_type;
     private MaterialButton addPoint_BTN_addPoint;
-    private ImageView addPoint_IMV_image;
+
+    private ObjectApi mApi;
+    private MapFragment mapFragment;
+
+    private GoogleMap myMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_poing_page);
         My_Screen_Utils.hideSystemUI(this);
+        mApi = RetrofitClient.getInstance().create(ObjectApi.class);
         startView();
+        mapFragment = new MapFragment();
+        getSupportFragmentManager().beginTransaction().add(R.id.addPoint_LAY_map,mapFragment).commit();
+
+        addPoint_BTN_addPoint.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int radioBtnId = addPoint_RAG_radiogroup.getCheckedRadioButtonId();
+                RadioButton radioButton = (RadioButton) addPoint_RAG_radiogroup.findViewById(radioBtnId);
+                String isPrivate = (String) radioButton.getText();
+                createObject(addPoint_EDT_pointName.getText().toString(),10.5, 12.8 , isPrivate ,
+                        addPoint_EDT_description.getText().toString(), addPoint_EDT_picture.getText().toString(),
+                        addPoint_SPN_type.getSelectedItem().toString());
+            }
+        });
     }
 
     private void startView() {
@@ -51,4 +94,45 @@ public class Add_Poing_Page extends AppCompatActivity {
         ArrayAdapter<String> typeAdapter = new ArrayAdapter<String>(this, R.layout.spinner_item,typesArray);
         addPoint_SPN_type.setAdapter(typeAdapter);
     }
+
+    public void onMapReady(GoogleMap googleMap) {
+        myMap = googleMap;
+        LatLng sydney = new LatLng(-34, 151);
+        myMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+        myMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+    }
+
+    private void createObject(String alias, Double lat, Double lng, String privateOrPublic , String description , String pictures , String type) {
+        ObjectBoundary newObject = new ObjectBoundary();
+        newObject.setType("Point");
+        newObject.setAlias(alias);
+        newObject.setActive(true);
+        newObject.setLocation(new LocationBoundary(lat, lng));
+        newObject.setCreatedBy(new CreatedBy(CurrentUser.getInstance().getTheUser().getUserId()));
+        HashMap<String, Object> details = new HashMap<String, Object>();
+        details.put("private or public", privateOrPublic);
+        details.put("description", description);
+        details.put("pitcures", pictures);
+        details.put("type", type);
+        newObject.setObjectDetails(details);
+        mApi.createObject(newObject).enqueue(new Callback<ObjectBoundary>() {
+            @Override
+            public void onResponse(Call<ObjectBoundary> call, Response<ObjectBoundary> response) {
+                if (response.isSuccessful()) {
+                    createNewObject(response.body());
+                } else {
+                    My_Signal.getInstance().toast("API call failed: " + response.code());
+                }
+            }
+            @Override
+            public void onFailure(Call<ObjectBoundary> call, Throwable t) {
+                My_Signal.getInstance().toast("API call failed: " + t.getMessage());
+            }
+        });
+    }
+
+    private void createNewObject(ObjectBoundary body){
+        My_Signal.getInstance().toast("the point added");
+        Intent intent = new Intent(this, Home_Page.class);
+        startActivity(intent);    }
 }

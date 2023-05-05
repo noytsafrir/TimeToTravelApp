@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">miniappPointsOfInterest</string>
+    <string name="my_map_api_key">AIzaSyDLurir3N89eaApLNYdZBvHZXe07LCFbOk</string>
 
     <string-array name="roles">
         <item>your role:</item>
@@ -9,7 +10,7 @@
     </string-array>
 
     <string-array name="levels">
-        <item>your level:</item>
+        <item>choose level:</item>
         <item>Level 1: Light</item>
         <item>Level 2: Medium</item>
         <item>Level 3: Hard</item>
@@ -17,7 +18,7 @@
     </string-array>
 
     <string-array name="types">
-        <item>your type:</item>
+        <item>choose type:</item>
         <item>View</item>
         <item>Lake</item>
         <item>Mountain</item>

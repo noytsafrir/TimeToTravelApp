@@ -8,18 +8,16 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Spinner;
-import android.widget.TextView;
-
 
 import com.example.miniapppointsofinterest.My_Screen_Utils;
 import com.example.miniapppointsofinterest.My_Signal;
 import com.example.miniapppointsofinterest.R;
 import com.example.miniapppointsofinterest.api.RetrofitClient;
 import com.example.miniapppointsofinterest.api.UserApi;
-import com.example.miniapppointsofinterest.model.NewUserBoundary;
-import com.example.miniapppointsofinterest.model.UserBoundary;
+import com.example.miniapppointsofinterest.model.CurrentUser;
+import com.example.miniapppointsofinterest.model.user.NewUserBoundary;
+import com.example.miniapppointsofinterest.model.user.UserBoundary;
 import com.google.android.material.button.MaterialButton;
 
 import retrofit2.Call;
@@ -60,10 +58,10 @@ public class Signup_Page extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 createUser(signup_EDT_email.getText().toString(), signup_EDT_username.getText().toString(), signup_SPN_roles.getSelectedItem().toString(), signup_EDT_avatar.getText().toString());
-//                signup_EDT_email.getText().clear();
-//                signup_EDT_username.getText().clear();
-//                //TODO: clear spinner
-//                signup_EDT_avatar.getText().clear();
+                signup_EDT_email.getText().clear();
+                signup_EDT_username.getText().clear();
+                //TODO: clear spinner
+                signup_EDT_avatar.getText().clear();
             }
         });
     }
@@ -73,9 +71,9 @@ public class Signup_Page extends AppCompatActivity {
         signup_EDT_email = findViewById(R.id.signup_EDT_email);
         signup_EDT_username =findViewById(R.id.signup_EDT_username);
         signup_SPN_roles = findViewById(R.id.signup_SPN_roles);
-        String[] rolesArray = getResources().getStringArray(R.array.types);
-        ArrayAdapter<String> typeAdapter = new ArrayAdapter<String>(this, R.layout.spinner_item,rolesArray);
-        signup_SPN_roles.setAdapter(typeAdapter);
+        String[] rolesArray = getResources().getStringArray(R.array.roles);
+        ArrayAdapter<String> roleAdapter = new ArrayAdapter<String>(this, R.layout.spinner_item,rolesArray);
+        signup_SPN_roles.setAdapter(roleAdapter);
 
     }
 
@@ -100,6 +98,7 @@ public class Signup_Page extends AppCompatActivity {
 
     private void confirmNewUserUI(UserBoundary user) {
         //TODO: check to add a delay before remove to the home page to show the success message
+        CurrentUser.init(user);
         Intent intent = new Intent(Signup_Page.this, Home_Page.class);
         startActivity(intent);
     }

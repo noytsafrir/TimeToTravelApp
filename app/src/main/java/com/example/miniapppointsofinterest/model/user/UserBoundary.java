@@ -1,36 +1,24 @@
-package com.example.miniapppointsofinterest.model;
-
-import com.google.gson.annotations.SerializedName;
+package com.example.miniapppointsofinterest.model.user;
 
 public class UserBoundary {
-
-    @SerializedName("userId")
-    private UserIdBoundary userId;
-
-    @SerializedName("role")
+    private UserId userId;
     private String role;
-
-    @SerializedName("username")
     private String username;
-
-    @SerializedName("avatar")
     private String avatar;
 
-    public UserBoundary() {
-    }
-
-    public UserBoundary(UserIdBoundary userId, String role, String username, String avatar) {
+    public UserBoundary() {}
+    public UserBoundary(UserId userId, String role, String username, String avatar) {
         this.userId = userId;
         this.role = role;
         this.username = username;
         this.avatar = avatar;
     }
 
-    public UserIdBoundary getUserId() {
+    public UserId getUserId() {
         return userId;
     }
 
-    public void setUserId(UserIdBoundary userId) {
+    public void setUserId(UserId userId) {
         this.userId = userId;
     }
 

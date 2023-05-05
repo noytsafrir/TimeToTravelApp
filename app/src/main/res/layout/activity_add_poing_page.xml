@@ -125,6 +125,13 @@
             android:textColorHint="@color/black"
             android:entries="@array/types"/>
 
+        <FrameLayout
+            android:id="@+id/addPoint_LAY_map"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:padding="15dp"/>
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/addPoint_BTN_addPoint"
             android:layout_width="wrap_content"

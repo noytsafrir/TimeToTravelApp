@@ -1,12 +1,12 @@
-package com.example.miniapppointsofinterest.model;
+package com.example.miniapppointsofinterest.model.user;
 
-public class UserIdBoundary {
+public class UserId {
     private String superapp;
     private String email;
 
-    public UserIdBoundary() {}
+    public UserId() {}
 
-    public UserIdBoundary(String superapp, String email) {
+    public UserId(String superapp, String email) {
         this.superapp = superapp;
         this.email = email;
     }

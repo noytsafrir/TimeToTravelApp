@@ -1,7 +1,7 @@
 package com.example.miniapppointsofinterest.api;
 
-import com.example.miniapppointsofinterest.model.NewUserBoundary;
-import com.example.miniapppointsofinterest.model.UserBoundary;
+import com.example.miniapppointsofinterest.model.user.NewUserBoundary;
+import com.example.miniapppointsofinterest.model.user.UserBoundary;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -19,5 +19,6 @@ public interface UserApi {
     Call<UserBoundary> login(@Path("superapp") String superapp, @Path("email") String email);
 
     @PUT("superapp/users/{superapp}/{email}")
-    Call<UserBoundary> updateUser(@Path("superapp") String superapp, @Path("email") String email, @Body UserBoundary userBoundary);
+    //TODO: delete if not use
+    void updateUser(@Path("superapp") String superapp, @Path("email") String email, @Body UserBoundary userBoundary);
 }

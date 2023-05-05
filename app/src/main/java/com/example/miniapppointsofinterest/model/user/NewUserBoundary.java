@@ -1,4 +1,4 @@
-package com.example.miniapppointsofinterest.model;
+package com.example.miniapppointsofinterest.model.user;
 
 public class NewUserBoundary {
     private String role;
