@@ -99,18 +99,18 @@
 <!--        Todo: add location- choose on a map-->
 
 
-        <Spinner
-            android:id="@+id/addPoint_SPN_level"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="32dp"
-            android:layout_marginBottom="20dp"
-            android:textSize="35sp"
-            android:hint="level: "
-            android:popupBackground="#ACA4A4"
-            android:textColor="@color/black"
-            android:textColorHint="@color/black"
-            android:entries="@array/levels"/>
+<!--        <Spinner-->
+<!--            android:id="@+id/addPoint_SPN_level"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginHorizontal="32dp"-->
+<!--            android:layout_marginBottom="20dp"-->
+<!--            android:textSize="35sp"-->
+<!--            android:hint="level: "-->
+<!--            android:popupBackground="#ACA4A4"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:textColorHint="@color/black"-->
+<!--            android:entries="@array/levels"/>-->
 
         <Spinner
             android:id="@+id/addPoint_SPN_type"
