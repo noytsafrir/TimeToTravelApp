@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".view.Add_Poing_Page">
+    tools:context=".view.Add_Point_Page">
 
    <fragment
        android:id="@+id/map"

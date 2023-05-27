@@ -3,14 +3,14 @@
     <string name="my_map_api_key">AIzaSyDLurir3N89eaApLNYdZBvHZXe07LCFbOk</string>
 
     <string-array name="roles">
-        <item>your role:</item>
+        <item>your role</item>
         <item>MINIAPP_USER</item>
         <item>SUPERAPP_USER</item>
         <item>ADMIN</item>
     </string-array>
 
     <string-array name="types">
-        <item>choose type:</item>
+        <item>choose type</item>
         <item>View</item>
         <item>Lake</item>
         <item>Relax (for picnic)</item>
