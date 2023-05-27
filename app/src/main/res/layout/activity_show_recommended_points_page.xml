@@ -1,16 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.Show_Recommended_Points_Page">
 
-    <androidx.appcompat.widget.LinearLayoutCompat
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/main_IMG_background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/img_background"
-        android:alpha="0.6"
+        app:srcCompat="@drawable/img_background"
+        android:alpha="0.4"
+        android:scaleType="centerCrop"/>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/ShowRecPoints_LAY_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <com.google.android.material.textview.MaterialTextView
@@ -22,47 +30,25 @@
             android:layout_marginHorizontal="40dp"
             android:layout_marginBottom="20dp"
             android:autoSizeTextType="uniform"
-            android:text="Other Reccomended Points"
+            android:text="Reccomended Points"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textStyle="bold|italic"
             tools:ignore="HardcodedText"
             tools:targetApi="o"/>
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
-        <androidx.appcompat.widget.LinearLayoutCompat
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_below="@id/ShowRecPoints_LAY_title">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/ShowRecPoints_LST_points"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/ShowRecPoints_LBL_point1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginHorizontal="40dp"
-                android:autoSizeTextType="uniform"
-                android:text="point details....."
-                android:textSize="24dp"
-                android:textAlignment="center"
-                android:textColor="@color/black"
-                tools:ignore="HardcodedText"
-                tools:targetApi="o"/>
-
-            <androidx.appcompat.widget.AppCompatEditText
-                android:id="@+id/ShowRecPoints_EDT_comment"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="40dp"
-                android:layout_marginBottom="10dp"
-                android:textSize="20dp"
-                android:hint="Add Comment "
-                android:textColor="@color/black"
-                android:textColorHint="@color/black" />
-
-
-        </androidx.appcompat.widget.LinearLayoutCompat>
-
-
+            tools:listitem="@layout/list_point" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 
 </RelativeLayout>

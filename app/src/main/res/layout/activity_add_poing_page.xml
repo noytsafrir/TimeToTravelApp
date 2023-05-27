@@ -88,29 +88,8 @@
             android:textColor="@color/black"
             android:textColorHint="@color/black" />
 
-<!--        <ImageView-->
-<!--            android:id="@+id/addPoint_IMV_image"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:src="@drawable/placeholder_image" />-->
-
 
         <!--        Todo: change the edit text to pictures to add -->
-<!--        Todo: add location- choose on a map-->
-
-
-        <Spinner
-            android:id="@+id/addPoint_SPN_level"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="32dp"
-            android:layout_marginBottom="20dp"
-            android:textSize="35sp"
-            android:hint="level: "
-            android:popupBackground="#ACA4A4"
-            android:textColor="@color/black"
-            android:textColorHint="@color/black"
-            android:entries="@array/levels"/>
 
         <Spinner
             android:id="@+id/addPoint_SPN_type"
@@ -130,7 +109,23 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:padding="15dp"/>
+            android:padding="15dp">
+
+            <fragment
+                android:id="@+id/mapFragment"
+                class="com.google.android.gms.maps.SupportMapFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/addPoint_BTN_confirmLocation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center"
+                android:layout_marginTop="16dp"
+                android:text="Confirm Location"
+                android:textAllCaps="false" />
+        </FrameLayout>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/addPoint_BTN_addPoint"

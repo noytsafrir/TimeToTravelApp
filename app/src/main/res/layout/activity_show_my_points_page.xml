@@ -1,16 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.Show_My_Points_Page">
 
-    <androidx.appcompat.widget.LinearLayoutCompat
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/main_IMG_background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/img_background"
-        android:alpha="0.6"
+        app:srcCompat="@drawable/img_background"
+        android:alpha="0.4"
+        android:scaleType="centerCrop"/>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/ShowMyPoints_LAY_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <com.google.android.material.textview.MaterialTextView
@@ -27,7 +35,19 @@
             android:textStyle="bold|italic"
             tools:ignore="HardcodedText"
             tools:targetApi="o"/>
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_below="@id/ShowMyPoints_LAY_title">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/ShowMyPoints_LST_points"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:listitem="@layout/list_point" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 
 </RelativeLayout>

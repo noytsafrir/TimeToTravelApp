@@ -9,19 +9,10 @@
         <item>ADMIN</item>
     </string-array>
 
-    <string-array name="levels">
-        <item>choose level:</item>
-        <item>Level 1: Light</item>
-        <item>Level 2: Medium</item>
-        <item>Level 3: Hard</item>
-        <item>Level 4: Extreme</item>
-    </string-array>
-
     <string-array name="types">
         <item>choose type:</item>
         <item>View</item>
         <item>Lake</item>
-        <item>Mountain</item>
         <item>Relax (for picnic)</item>
         <item>Restaurant</item>
         <item>Museum</item>
