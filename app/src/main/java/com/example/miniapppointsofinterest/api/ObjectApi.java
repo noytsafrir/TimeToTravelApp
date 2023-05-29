@@ -13,6 +13,7 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface ObjectApi {
 
@@ -29,11 +30,11 @@ public interface ObjectApi {
 
 //    @GET("superapp/objects")
 //    Call<List<ObjectBoundary>> getAllObjects();
-    @GET("/superapp/objects?userSuperapp={userSuperapp}&userEmail={email}&size={size}&page={page}")
-    Call<List<ObjectBoundary>> getAllObjectsUsingPagination(@Path("userSuperapp") String userSuperapp,
-                                                             @Path("email") String email,
-                                                             @Path("size") int size,
-                                                             @Path("page") int page);
+    @GET("/superapp/objects")
+    Call<List<ObjectBoundary>> getAllObjectsUsingPagination(@Query("userSuperapp") String userSuperapp,
+                                                             @Query("userEmail") String email,
+                                                             @Query("size") int size,
+                                                             @Query("page") int page);
 
 //    @PUT("superapp/objects/{superapp}/{InternalObjectId}")
 //    void updateObject(@Path("superapp") String superapp, @Path("InternalObjectId") String id, @Body ObjectBoundary objectBoundary);

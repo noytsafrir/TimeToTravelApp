@@ -12,11 +12,13 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface MiniAppCommandApi {
-
-    @POST("/superapp/miniapp/{miniAppName}?async={asyncFlag}")
-    Call<Object> invokeCommand(@Path("miniAppName") String miniAppName,
-                                               @Path("asyncFlag") boolean asyncFlag,
-                                               @Body MiniAppCommandBoundary miniAppCommandBoundary);
+    @POST("/superapp/miniapp/{miniAppName}")
+    Call<Object> invokeCommand(
+            @Path("miniAppName") String miniAppName,
+            @Query("async") boolean asyncFlag,
+            @Body MiniAppCommandBoundary miniAppCommandBoundary
+    );
 }

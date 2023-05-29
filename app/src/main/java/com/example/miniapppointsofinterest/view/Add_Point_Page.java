@@ -2,6 +2,8 @@ package com.example.miniapppointsofinterest.view;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.util.Log;
@@ -44,6 +46,9 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 
 import com.google.android.material.button.MaterialButton;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 
 import retrofit2.Call;
@@ -68,7 +73,7 @@ public class Add_Point_Page extends AppCompatActivity {
     private boolean isLocationSelected = false;
     private Button addPoint_BTN_uploadImage;
     private ImageView imageView;
-
+    private byte[] imageByteArray;
     private double lat ,lng;
 
 
@@ -123,8 +128,6 @@ public class Add_Point_Page extends AppCompatActivity {
                             // Get the selected location LatLng
                             LatLng selectedLocation = selectedLocationMarker.getPosition();
 
-                            // TODO: save the selected location in the database
-
                             // Show a toast message to indicate the selected location
                             String message = "Selected Location: " + selectedLocation.latitude + ", " + selectedLocation.longitude;
                             Toast.makeText(Add_Point_Page.this, message, Toast.LENGTH_SHORT).show();
@@ -147,20 +150,12 @@ public class Add_Point_Page extends AppCompatActivity {
                     // Extract the latitude and longitude
                     lat = selectedLocation.latitude;
                     lng = selectedLocation.longitude;
-
-                    // TODO: save the latitude and longitude in the database
-
-                    // Show a toast message to indicate the selected location
-                    String message = "Selected Location: " + lat + ", " + lng;
-                    Toast.makeText(Add_Point_Page.this, message, Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(Add_Point_Page.this, "Please select a location on the map", Toast.LENGTH_SHORT).show();
                 }
-
-                //TODO: check that the image is ok
                 createObject(addPoint_EDT_pointName.getText().toString(),lat, lng,
                         addPoint_EDT_description.getText().toString(),
-                        addPoint_BTN_uploadImage.getText().toString(),
+                        imageByteArray,
                         addPoint_SPN_type.getSelectedItem().toString());
             }
         });
@@ -214,15 +209,47 @@ public class Add_Point_Page extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == IMAGE_UPLOAD_REQUEST_CODE && resultCode == RESULT_OK) {
             if (data != null) {
+                // Get the URI of the selected image
                 Uri imageUri = data.getData();
-                ImageView imageView = findViewById(R.id.imageView);
                 imageView.setImageURI(imageUri);
+                // Convert the image to a byte array
+                this.imageByteArray = convertImageToByteArray(imageUri);
+
+//                // Use the byte array as needed (e.g., send it to the server)
+//                if (imageByteArray != null) {
+//                    // Do something with the imageByteArray
+//                }
             }
         }
     }
 
 
-    private void createObject(String alias, Double lat, Double lng, String description , String image , String type) {
+    // Image conversion method
+    public byte[] convertImageToByteArray(Uri imageUri) {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        try {
+            InputStream inputStream = getContentResolver().openInputStream(imageUri);
+            if (inputStream != null) {
+                Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+                byte[] byteArray = byteArrayOutputStream.toByteArray();
+                inputStream.close();
+                return byteArray;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                byteArrayOutputStream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
+    }
+
+
+    private void createObject(String alias, Double lat, Double lng, String description , byte[] imageByteArray , String type) {
         ObjectBoundary newObject = new ObjectBoundary();
         newObject.setType("Point");
         newObject.setAlias(alias);
@@ -231,7 +258,7 @@ public class Add_Point_Page extends AppCompatActivity {
         newObject.setCreatedBy(new CreatedBy(CurrentUser.getInstance().getTheUser().getUserId()));
         HashMap<String, Object> details = new HashMap<String, Object>();
         details.put("description", description);
-        details.put("image", image);
+        details.put("image", imageByteArray);
         details.put("type", type);
         newObject.setObjectDetails(details);
         mApi.createObject(newObject).enqueue(new Callback<ObjectBoundary>() {
@@ -264,6 +291,7 @@ public class Add_Point_Page extends AppCompatActivity {
         addPoint_BTN_addPoint = findViewById(R.id.addPoint_BTN_addPoint);
         addPoint_BTN_confirmLocation = findViewById(R.id.addPoint_BTN_confirmLocation);
         imageView = findViewById(R.id.imageView);
+
         String[] typesArray = getResources().getStringArray(R.array.types);
         ArrayAdapter<String> typeAdapter = new ArrayAdapter<String>(this, R.layout.spinner_item,typesArray);
         addPoint_SPN_type.setAdapter(typeAdapter);

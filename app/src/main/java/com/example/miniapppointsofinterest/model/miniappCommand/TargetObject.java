@@ -3,7 +3,6 @@ package com.example.miniapppointsofinterest.model.miniappCommand;
 public class TargetObject {
 
 	private SuperAppObjectIdBoundary objectId;
-
 	public TargetObject() {}
 
 	public TargetObject(SuperAppObjectIdBoundary objectId) {

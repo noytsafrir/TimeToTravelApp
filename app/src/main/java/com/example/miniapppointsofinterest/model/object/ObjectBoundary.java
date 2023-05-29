@@ -2,11 +2,13 @@ package com.example.miniapppointsofinterest.model.object;
 
 import android.location.Location;
 
+import com.example.miniapppointsofinterest.model.miniappCommand.SuperAppObjectIdBoundary;
+
 import java.util.Date;
 import java.util.Map;
 
 public class ObjectBoundary {
-    private ObjectId objectId;
+    private SuperAppObjectIdBoundary objectId;
     private String type;
     private String alias;
     private Boolean active;
@@ -14,12 +16,12 @@ public class ObjectBoundary {
     private LocationBoundary location;
     private CreatedBy createdBy;
     private Map<String,Object> objectDetails;
-    private Map<String,String> binding;
+//    private Map<String,String> binding;
 
     public ObjectBoundary() {}
 
-    public ObjectBoundary(ObjectId objectId, String type, String alias, Boolean active, Date creationTimestamp,
-                          LocationBoundary location, CreatedBy createdBy, Map<String, Object> objectDetails, Map<String,String> binding) {
+    public ObjectBoundary(SuperAppObjectIdBoundary objectId, String type, String alias, Boolean active, Date creationTimestamp,
+                          LocationBoundary location, CreatedBy createdBy, Map<String, Object> objectDetails) {
         // 1 2
         this.objectId = objectId;
         this.type = type;
@@ -33,22 +35,22 @@ public class ObjectBoundary {
         // 9 -10
         this.objectDetails = objectDetails;
         //11
-        this.binding = binding ;
+//        this.binding = binding ;
     }
 
-    public Map<String, String> getBinding() {
-        return binding;
-    }
+//    public Map<String, String> getBinding() {
+//        return binding;
+//    }
+//
+//    public void setBinding(Map<String, String> binding) {
+//        this.binding = binding;
+//    }
 
-    public void setBinding(Map<String, String> binding) {
-        this.binding = binding;
-    }
-
-    public ObjectId getObjectId() {
+    public SuperAppObjectIdBoundary getObjectId() {
         return objectId;
     }
 
-    public void setObjectId(ObjectId objectId) {
+    public void setObjectId(SuperAppObjectIdBoundary objectId) {
         this.objectId = objectId;
     }
 
@@ -112,7 +114,7 @@ public class ObjectBoundary {
     public String toString() {
         return "ObjectBoundary [objectId=" + objectId + ", type=" + type + ", alias=" + alias + ", active=" + active
                 + ", creationTimestamp=" + creationTimestamp + ", location=" + location + ", createdBy=" + createdBy
-                + ", objectDetails=" + objectDetails + ", binding=" + binding + "]";
+                + ", objectDetails=" + objectDetails + "]";
     }
 
 

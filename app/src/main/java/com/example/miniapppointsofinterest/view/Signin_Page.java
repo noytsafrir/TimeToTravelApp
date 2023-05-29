@@ -35,7 +35,6 @@ public class Signin_Page extends AppCompatActivity {
         mApi = RetrofitClient.getInstance().create(UserApi.class);
 
         startView();
-
         signin_BTN_signin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

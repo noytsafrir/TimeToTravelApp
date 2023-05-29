@@ -1,5 +1,6 @@
 package com.example.miniapppointsofinterest.recycleView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,19 +15,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.miniapppointsofinterest.model.object.ObjectBoundary;
 import com.google.android.material.textview.MaterialTextView;
 
-import java.util.List;
-import java.util.Locale;
+import java.util.ArrayList;
 
-public class Adapter_Points extends RecyclerView.Adapter<Adapter_Points.GameViewHolder> {
-
-    private List<ObjectBoundary> points;
+public class Adapter_Points extends RecyclerView.Adapter<Adapter_Points.PointViewHolder> {
+    private ArrayList<ObjectBoundary> points;
     private OnPointClickListener onPointClickListener;
 
-    public Adapter_Points(List<ObjectBoundary> points) {
+    public Adapter_Points(ArrayList<ObjectBoundary> points) {
         this.points = points;
     }
 
-    public void updateList(List<ObjectBoundary> points) {
+    public void updateList(ArrayList<ObjectBoundary> points) {
         this.points = points;
         notifyDataSetChanged();
     }
@@ -37,19 +36,19 @@ public class Adapter_Points extends RecyclerView.Adapter<Adapter_Points.GameView
 
     @NonNull
     @Override
-    public GameViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
+    public PointViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.list_point, viewGroup, false);
-        return new GameViewHolder(view);
+        return new PointViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull GameViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull PointViewHolder holder, int position) {
         ObjectBoundary point = getItem(position);
 
-        holder.point_LBL_title.setText(point.getAlias());
-        holder.point_LBL_type.setText(point.getObjectDetails().get("type").toString());
-        holder.point_LBL_user.setText(point.getCreatedBy().getUserId().getEmail());
-        holder.point_RTG_rating.setRating((float) point.getObjectDetails().get("rating"));
+        holder.point_LBL_title.setText(holder.point_LBL_title.getText() +" "+point.getAlias().toString());
+        holder.point_LBL_user.setText(point.getCreatedBy().getUserId().getEmail().toString());
+//        holder.point_LBL_type.setText(point.getObjectDetails().get("type").toString());
+//        holder.point_RTG_rating.setRating((float) point.getObjectDetails().get("rating"));
 
 //        Imager.me().imageCrop(holder.point_IMG_image, point.getObjectDetails().get("image"));
 
@@ -74,7 +73,7 @@ public class Adapter_Points extends RecyclerView.Adapter<Adapter_Points.GameView
         void onLikeClicked(View view, ObjectBoundary point, int position);
     }
 
-    public class GameViewHolder extends RecyclerView.ViewHolder {
+    public class PointViewHolder extends RecyclerView.ViewHolder {
 
         private AppCompatImageView  point_IMG_image;
         private AppCompatImageView  point_IMG_like;
@@ -83,14 +82,14 @@ public class Adapter_Points extends RecyclerView.Adapter<Adapter_Points.GameView
         private MaterialTextView    point_LBL_user;
         private AppCompatRatingBar  point_RTG_rating;
 
-        GameViewHolder(View itemView) {
+        PointViewHolder(View itemView) {
             super(itemView);
-            point_IMG_image = itemView.findViewById(R.id. point_IMG_image);
-            point_IMG_like = itemView.findViewById(R.id.  point_IMG_like);
-            point_LBL_title = itemView.findViewById(R.id. point_LBL_title);
-            point_LBL_type = itemView.findViewById(R.id.  point_LBL_type);
-            point_LBL_user = itemView.findViewById(R.id.  point_LBL_user);
-            point_RTG_rating = itemView.findViewById(R.id.point_RTG_rating);
+//            point_IMG_image = itemView.findViewById(R.id. point_IMG_image);
+            point_IMG_like = itemView.findViewById(R.id.point_IMG_like);
+            point_LBL_title = itemView.findViewById(R.id.point_LBL_title);
+            point_LBL_type = itemView.findViewById(R.id.point_LBL_type);
+            point_LBL_user = itemView.findViewById(R.id.point_LBL_user);
+//            point_RTG_rating = itemView.findViewById(R.id.point_RTG_rating);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

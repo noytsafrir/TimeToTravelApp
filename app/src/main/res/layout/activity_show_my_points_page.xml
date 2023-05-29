@@ -35,6 +35,22 @@
             android:textStyle="bold|italic"
             tools:ignore="HardcodedText"
             tools:targetApi="o"/>
+
+<!--        <com.google.android.material.textview.MaterialTextView-->
+<!--            android:id="@+id/ShowMyPoints_LBL_jason"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_gravity="center_horizontal"-->
+<!--            android:layout_marginTop="30dp"-->
+<!--            android:layout_marginBottom="20dp"-->
+<!--            android:autoSizeTextType="uniform"-->
+<!--            android:text="My Points"-->
+<!--            android:textAlignment="center"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:textStyle="bold|italic"-->
+<!--            tools:ignore="HardcodedText"-->
+<!--            tools:targetApi="o"/>-->
+
     </androidx.appcompat.widget.LinearLayoutCompat>
 
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -42,6 +58,15 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:layout_below="@id/ShowMyPoints_LAY_title">
+
+<!--        <ImageView-->
+<!--            android:id="@+id/imageView"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="220dp"-->
+<!--            android:layout_below="@id/ShowMyPoints_LBL_MyPoints"-->
+<!--            android:layout_marginTop="16dp"-->
+<!--            android:padding="15dp"-->
+<!--            android:scaleType="centerCrop" />-->
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/ShowMyPoints_LST_points"

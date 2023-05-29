@@ -64,6 +64,7 @@
             android:layout_height="match_parent"
             android:maxLines="1"
             android:ellipsize="end"
+            android:textColor="@color/black"
             android:gravity="bottom"
             android:textSize="14sp"
             android:layout_weight="1"
