@@ -10,6 +10,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
 
 
     <application
@@ -50,7 +51,6 @@
             </intent-filter>
         </activity>
 
-
         <activity
             android:name=".view.Signin_Page"
             android:exported="true" />
@@ -58,6 +58,9 @@
             android:name=".view.Signup_Page"
             android:exported="true" />
 
+        <activity
+            android:name=".view.Specific_Point_Page"
+            android:exported="true" />
     </application>
 
 

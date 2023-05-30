@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.Specific_Point_Page">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/img_background"
+        android:alpha="0.6"
+        android:orientation="vertical">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/specificPoint_LBL_PointName"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="15dp"
+            android:autoSizeTextType="uniform"
+            android:text="title"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textStyle="bold|italic"
+            tools:targetApi="o" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/specificPoint_LBL_PointType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:textSize="22sp"
+            android:text="Type: "
+            android:textColor="@color/black"
+            android:layout_marginHorizontal="28dp"
+            tools:targetApi="o" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/specificPoint_LBL_Location"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:textSize="22sp"
+            android:text="Location: "
+            android:textColor="@color/black"
+            android:layout_marginHorizontal="28dp"
+            tools:targetApi="o" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/specificPoint_LBL_CreatedUser"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:textSize="22sp"
+            android:text="Created By: "
+            android:textColor="@color/black"
+            android:layout_marginHorizontal="28dp"
+            tools:targetApi="o" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/specificPoint_LBL_PointDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:textSize="22sp"
+            android:text="Description: "
+            android:textColor="@color/black"
+            android:layout_marginHorizontal="28dp"
+            tools:targetApi="o"/>
+
+<!--        <com.google.android.material.textview.MaterialTextView-->
+<!--            android:id="@+id/specificPoint_LBL_OtherDetails"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginBottom="15dp"-->
+<!--            android:textSize="22sp"-->
+<!--            android:text="Other info: "-->
+<!--            android:textColor="@color/black"-->
+<!--            android:layout_marginHorizontal="28dp"-->
+<!--            tools:targetApi="o"/>-->
+
+        <ImageView
+            android:id="@+id/specificPoint_IMV_imageView"
+            android:layout_width="match_parent"
+            android:layout_height="340dp"
+            android:layout_below="@id/specificPoint_LBL_PointDescription"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginHorizontal="12dp"
+            android:padding="15dp"
+            android:scaleType="centerCrop" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="28dp"
+        android:orientation="horizontal">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/specificPoint_LBL_rate"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textSize="22sp"
+            android:text="Rate this point: "
+            android:textColor="@color/black"
+            tools:targetApi="o" />
+
+        <RatingBar
+            android:id="@+id/point_RTG_rating"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:rating="0"
+            android:stepSize="1.0"
+            android:isIndicator="false"
+            android:progressTint="#FFEB3B"
+            android:numStars="5" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/specificPoint_BTN_return"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:layout_marginHorizontal="10dp"
+            android:text="Back"
+            android:textAllCaps="false" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</RelativeLayout>

@@ -5,12 +5,13 @@ import androidx.appcompat.widget.AppCompatImageView;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Base64;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.miniapppointsofinterest.My_Screen_Utils;
 import com.example.miniapppointsofinterest.My_Signal;
@@ -29,9 +30,10 @@ import com.example.miniapppointsofinterest.recycleView.Adapter_Points;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textview.MaterialTextView;
 import com.google.gson.Gson;
-import com.google.gson.internal.LinkedTreeMap;
 import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.List;
@@ -48,10 +50,9 @@ public class Show_My_Points_Page extends AppCompatActivity {
     private Adapter_Points adapter_points;
     private MiniAppCommandApi mApi;
     private ObjectApi oApi;
+    private MaterialButton ShowMyPoints_BTN_return;
 
-    private ImageView imageView;
 
-    private MaterialTextView ShowMyPoints_LBL_jason;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,73 +64,86 @@ public class Show_My_Points_Page extends AppCompatActivity {
 
         ShowMyPoints_LST_points = findViewById(R.id.ShowMyPoints_LST_points);
         main_IMG_background = findViewById(R.id.main_IMG_background);
-//        imageView = findViewById(R.id.imageView);
-//        ShowMyPoints_LBL_jason = findViewById(R.id.ShowMyPoints_LBL_jason);
+        ShowMyPoints_BTN_return = findViewById(R.id.ShowMyPoints_BTN_return);
+
         points = new ArrayList<>();
         initList();
-        updatePointsFromServer();
+        getDummyObjectAndPointsFromServer();
+
+        ShowMyPoints_BTN_return.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Show_My_Points_Page.this, Home_Page.class);
+                startActivity(intent);
+            }
+        });
 
     }
 
     private void initList() {
-        adapter_points = new Adapter_Points(points);
-//        adapter_points.setOnPointClickListener(new Adapter_Points().OnPointClickListener() {
-//            @Override
-//            public void onClick (View view, ObjectBoundary point,int position){
-//                Toast.makeText(Show_My_Points_Page.this, game.getTitle() + " clicked", Toast.LENGTH_SHORT).show();
-//            }
-//
-//            @Override
-//            public void onLikeClicked (View view, Game game,int position){
-//                likeClicked(position);
-//            }
-//        });
+        adapter_points = new Adapter_Points(points, this);
+        adapter_points.setOnPointClickListener(new Adapter_Points.OnPointClickListener() {
+            @Override
+            public void onClick(View view, ObjectBoundary point, int position) {
+//                Intent intent = new Intent(Show_My_Points_Page.this, Specific_Point_Page.class);
+//                startActivity(intent);
+            }
+        });
 
         // Grid view
         ShowMyPoints_LST_points.setLayoutManager(new GridLayoutManager(this, 2));
 
         ShowMyPoints_LST_points.setHasFixedSize(true);
         ShowMyPoints_LST_points.setAdapter(adapter_points);
-
+    }
+    private void getDummyObjectAndPointsFromServer(){
+        String superapp =CurrentUser.getInstance().getTheUser().getUserId().getSuperapp();
+        String email = CurrentUser.getInstance().getTheUser().getUserId().getEmail();
+        oApi.getObjectByType("DummyObject", superapp, email,1,0).enqueue(new Callback<List<ObjectBoundary>>() {
+            @Override
+            public void onResponse(Call<List<ObjectBoundary>> call, Response<List<ObjectBoundary>> response) {
+                if (response.isSuccessful()) {
+                    List<ObjectBoundary> responseBody = response.body();
+                    updatePointsFromServer(responseBody.get(0));
+                } else {
+                    My_Signal.getInstance().toast("API call failed: " + response.code());
+                }
+            }
+            @Override
+            public void onFailure(Call<List<ObjectBoundary>> call, Throwable t) {
+                My_Signal.getInstance().toast("API call failed: " + t.getMessage());
+            }
+        });
     }
 
-    private void updatePointsFromServer() {
-        String superapp ="2023b.noy.tsafrir";
-        String id = "238b32f4-c350-49b1-885f-95151e5683d1";
+    private void updatePointsFromServer(ObjectBoundary targetObject) {
         MiniAppCommandBoundary miniappCommand = new MiniAppCommandBoundary();
         miniappCommand.setCommandAttributes(new HashMap<>());
         miniappCommand.setCommand("timeToTravel_findMyPoints");
         InvocationUser invokedBy = new InvocationUser(CurrentUser.getInstance().getTheUser().getUserId());
         miniappCommand.setInvokedBy(invokedBy);
-        //TODO: COMPLETE THE TARGET OBJECT
-        SuperAppObjectIdBoundary superAppObjectIdBoundary = new SuperAppObjectIdBoundary(superapp,id);
-        TargetObject targetObject = new TargetObject(superAppObjectIdBoundary);
-        miniappCommand.setTargetObject(targetObject);
+        TargetObject target = new TargetObject(targetObject.getObjectId());
+        miniappCommand.setTargetObject(target);
 
-//        mApi.invokeCommand("TimeToTravel",false,miniappCommand).enqueue(new Callback<Object>() {
-        oApi.getAllObjectsUsingPagination(CurrentUser.getInstance().getTheUser().getUserId().getSuperapp(),
-                CurrentUser.getInstance().getTheUser().getUserId().getEmail(),
-                10,0).enqueue(new Callback<List<ObjectBoundary>>() {
+        mApi.invokeCommand("TimeToTravel",false,miniappCommand).enqueue(new Callback<Object>() {
             @Override
-//            public void onResponse(Call<ObjectBoundary> call, Response<Object> response) {
-            public void onResponse(Call<List<ObjectBoundary>> call, Response<List<ObjectBoundary>> response) {
+            public void onResponse(Call<Object> call, Response<Object> response) {
                 if (response.isSuccessful()) {
-                   getAllPointsByUser(response.body());
-//                    Object responseBody = response.body();
-//                    if (responseBody instanceof List) {
-//                        ArrayList<ObjectBoundary> points = (ArrayList<ObjectBoundary>) responseBody;
-//                        getAllPointsByUser(points);
-//                    } else {
-//                        My_Signal.getInstance().toast("Invalid response body type");
-//                    }
+                    Object responseBody = response.body();
+                    ArrayList<Object> points = (ArrayList<Object>) responseBody;
+                    Gson gson = new Gson();
+                    String json = gson.toJson(points);
+                    Type type = new TypeToken<ArrayList<ObjectBoundary>>(){}.getType();
+                    ArrayList<ObjectBoundary> pointsList = gson.fromJson(json, type);
+                    getAllPointsByUser(pointsList);
+
                 } else {
                     My_Signal.getInstance().toast("API call failed: " + response.code());
                 }
             }
 
             @Override
-//            public void onFailure(Call<Object> call, Throwable t) {
-            public void onFailure(Call<List<ObjectBoundary>> call, Throwable t) {
+            public void onFailure(Call<Object> call, Throwable t) {
                 My_Signal.getInstance().toast("API call failed: " + t.getMessage());
             }
         });
@@ -138,24 +152,10 @@ public class Show_My_Points_Page extends AppCompatActivity {
     private void getAllPointsByUser(List<ObjectBoundary> points) {
         this.points.addAll(points);
         updateList(this.points);
-//        ShowMyPoints_LBL_jason.setText(points.toString());
-        Log.d("test", "********************$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
-        Log.d("test", "********************getAllPointsByUser: "+ points.get(0).getClass().getName());
-//        if (!points.isEmpty()) {
-//            ObjectBoundary firstPoint = points.get(0);
-//            Gson gson = new Gson();
-//            String objectDetailsJson = gson.toJson(firstPoint.getObjectDetails());
-//            ObjectBoundary objectBoundary = gson.fromJson(objectDetailsJson, ObjectBoundary.class);
-//
-//            String imageBase64 = (String)objectBoundary.getObjectDetails().get("image");
-//            byte[] imageBytes = Base64.decode(imageBase64, Base64.DEFAULT);
-//
-//            Bitmap bitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
-//            imageView.setImageBitmap(bitmap);
-//        }
     }
 
     private void updateList(ArrayList<ObjectBoundary> points) {
         adapter_points.updateList(points);
     }
+
 }

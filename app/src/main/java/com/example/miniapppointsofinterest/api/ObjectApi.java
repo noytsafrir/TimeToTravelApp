@@ -20,24 +20,19 @@ public interface ObjectApi {
     @POST("superapp/objects")
     Call<ObjectBoundary> createObject(@Body ObjectBoundary objectBoundary);
 
-//    @GET("superapp/objects/{superapp}/{InternalObjectId}")
-//    Call<ObjectBoundary> getObject(@Path("superapp") String superapp, @Path("InternalObjectId") String id);
     @GET("/superapp/objects/{superapp}/{internalObjectId}?userSuperapp={userSuperapp}&userEmail={email}")
     Call<ObjectBoundary> getSpecificObject(@Path("superapp") String superapp,
                                            @Path("internalObjectId") String id,
                                            @Path("userSuperapp") String userSuperapp,
                                            @Path("email") String email);
 
-//    @GET("superapp/objects")
-//    Call<List<ObjectBoundary>> getAllObjects();
+
     @GET("/superapp/objects")
     Call<List<ObjectBoundary>> getAllObjectsUsingPagination(@Query("userSuperapp") String userSuperapp,
-                                                             @Query("userEmail") String email,
-                                                             @Query("size") int size,
-                                                             @Query("page") int page);
+                                                            @Query("userEmail") String email,
+                                                            @Query("size") int size,
+                                                            @Query("page") int page);
 
-//    @PUT("superapp/objects/{superapp}/{InternalObjectId}")
-//    void updateObject(@Path("superapp") String superapp, @Path("InternalObjectId") String id, @Body ObjectBoundary objectBoundary);
     @PUT("/superapp/objects/{superapp}/{internalObjectId}?userSuperapp={userSuperapp}&userEmail={email}")
     void updateObject(@Path("superapp") String superapp,
                       @Path("internalObjectId") String id,
@@ -45,26 +40,12 @@ public interface ObjectApi {
                       @Path("email") String email,
                       @Body ObjectBoundary objectBoundary);
 
-    @PUT("/superapp/objects/{superapp}/{internalObjectId}/children?userSuperapp={userSuperapp}&userEmail={email}")
-    void bindAnObjectToExistingObject(@Path("superapp") String superapp,
-                                      @Path("internalObjectId") String id,
-                                      @Path("userSuperapp") String userSuperapp,
-                                      @Path("email") String email,
-                                      @Body SuperAppObjectIdBoundary superAppObjectIdBoundary);
+    @GET("/superapp/objects/search/byType/{type}")
+    Call<List<ObjectBoundary>> getObjectByType(@Path("type") String type,
+                                               @Query("userSuperapp") String userSuperapp,
+                                               @Query("userEmail") String email,
+                                               @Query("size") int size,
+                                               @Query("page") int page);
 
 
-    @GET("/superapp/objects/{superapp}/{internalObjectId}/children?userSuperapp={userSuperapp}&userEmail={email}&size={size}&page={page}")
-    Call<List<ObjectBoundary>> getAllChildrenObjectsUsingPagination(@Path("superapp") String superapp,
-                                                                     @Path("internalObjectId") String id,
-                                                                     @Path("userSuperapp") String userSuperapp,
-                                                                     @Path("email") String email,
-                                                                     @Path("size") int size,
-                                                                     @Path("page") int page);
-    @GET("/superapp/objects/{superapp}/{internalObjectId}/parents?userSuperapp={userSuperapp}&userEmail={email}&size={size}&page={page}")
-    Call<List<ObjectBoundary>> getAllParentsObjectsUsingPagination(@Path("superapp") String superapp,
-                                                                    @Path("internalObjectId") String id,
-                                                                    @Path("userSuperapp") String userSuperapp,
-                                                                    @Path("email") String email,
-                                                                    @Path("size") int size,
-                                                                    @Path("page") int page);
 }

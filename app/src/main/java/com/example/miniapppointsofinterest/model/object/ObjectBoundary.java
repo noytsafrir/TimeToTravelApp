@@ -16,7 +16,6 @@ public class ObjectBoundary {
     private LocationBoundary location;
     private CreatedBy createdBy;
     private Map<String,Object> objectDetails;
-//    private Map<String,String> binding;
 
     public ObjectBoundary() {}
 
@@ -34,17 +33,9 @@ public class ObjectBoundary {
         this.createdBy = createdBy;
         // 9 -10
         this.objectDetails = objectDetails;
-        //11
-//        this.binding = binding ;
+
     }
 
-//    public Map<String, String> getBinding() {
-//        return binding;
-//    }
-//
-//    public void setBinding(Map<String, String> binding) {
-//        this.binding = binding;
-//    }
 
     public SuperAppObjectIdBoundary getObjectId() {
         return objectId;

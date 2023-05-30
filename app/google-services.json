@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "446814268417",
+    "project_id": "travelapp-1f5c4",
+    "storage_bucket": "travelapp-1f5c4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:446814268417:android:2a2e6df7d68a95e1c22400",
+        "android_client_info": {
+          "package_name": "com.example.miniapppointsofinterest"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAQpj2UXXyhe9sG-MsKcKzEq4mG4vJSDag"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

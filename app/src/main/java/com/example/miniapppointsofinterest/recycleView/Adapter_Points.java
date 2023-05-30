@@ -1,9 +1,12 @@
 package com.example.miniapppointsofinterest.recycleView;
 
+import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.bumptech.glide.Glide;
 import com.example.miniapppointsofinterest.R;
 
 
@@ -21,8 +24,12 @@ public class Adapter_Points extends RecyclerView.Adapter<Adapter_Points.PointVie
     private ArrayList<ObjectBoundary> points;
     private OnPointClickListener onPointClickListener;
 
-    public Adapter_Points(ArrayList<ObjectBoundary> points) {
+    private Context context;
+
+
+    public Adapter_Points(ArrayList<ObjectBoundary> points, Context context) {
         this.points = points;
+        this.context = context;
     }
 
     public void updateList(ArrayList<ObjectBoundary> points) {
@@ -44,19 +51,27 @@ public class Adapter_Points extends RecyclerView.Adapter<Adapter_Points.PointVie
     @Override
     public void onBindViewHolder(@NonNull PointViewHolder holder, int position) {
         ObjectBoundary point = getItem(position);
+        if(point.getType().equals("DummyObject"))
+            return;
+        Log.d("test", "onBindViewHolder: "+ point.toString());
+        holder.point_LBL_title.setText(point.getAlias());
+        holder.point_LBL_user.setText(point.getCreatedBy().getUserId().getEmail());
+        holder.point_LBL_type.setText(point.getObjectDetails().get("type").toString());
+        Float rating = ((Double)point.getObjectDetails().get("rating")).floatValue();
+        holder.point_RTG_rating.setRating(rating);
 
-        holder.point_LBL_title.setText(holder.point_LBL_title.getText() +" "+point.getAlias().toString());
-        holder.point_LBL_user.setText(point.getCreatedBy().getUserId().getEmail().toString());
-//        holder.point_LBL_type.setText(point.getObjectDetails().get("type").toString());
-//        holder.point_RTG_rating.setRating((float) point.getObjectDetails().get("rating"));
-
-//        Imager.me().imageCrop(holder.point_IMG_image, point.getObjectDetails().get("image"));
-
-//        if (point.isLiked()) {
-//            holder.game_IMG_like.setImageResource(R.drawable.ic_heart_filled);
-//        } else {
-//            holder.game_IMG_like.setImageResource(R.drawable.ic_heart_linear);
-//        }
+        if(point.getObjectDetails().get("image") != null && !point.getObjectDetails().get("image").equals("")) {
+            Glide
+                    .with(context)
+                    .load(point.getObjectDetails().get("image"))
+                    .into(holder.point_IMG_image);
+        }
+        else {
+            Glide
+                    .with(context)
+                    .load(R.drawable.img_no_image)
+                    .into(holder.point_IMG_image);
+        }
     }
 
     @Override
@@ -70,13 +85,11 @@ public class Adapter_Points extends RecyclerView.Adapter<Adapter_Points.PointVie
 
     public interface OnPointClickListener {
         void onClick(View view, ObjectBoundary point, int position);
-        void onLikeClicked(View view, ObjectBoundary point, int position);
     }
 
     public class PointViewHolder extends RecyclerView.ViewHolder {
 
         private AppCompatImageView  point_IMG_image;
-        private AppCompatImageView  point_IMG_like;
         private MaterialTextView    point_LBL_title;
         private MaterialTextView    point_LBL_type;
         private MaterialTextView    point_LBL_user;
@@ -84,23 +97,15 @@ public class Adapter_Points extends RecyclerView.Adapter<Adapter_Points.PointVie
 
         PointViewHolder(View itemView) {
             super(itemView);
-//            point_IMG_image = itemView.findViewById(R.id. point_IMG_image);
-            point_IMG_like = itemView.findViewById(R.id.point_IMG_like);
+            point_IMG_image = itemView.findViewById(R.id. point_IMG_image);
             point_LBL_title = itemView.findViewById(R.id.point_LBL_title);
             point_LBL_type = itemView.findViewById(R.id.point_LBL_type);
             point_LBL_user = itemView.findViewById(R.id.point_LBL_user);
-//            point_RTG_rating = itemView.findViewById(R.id.point_RTG_rating);
+            point_RTG_rating = itemView.findViewById(R.id.point_RTG_rating);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     onPointClickListener.onClick(v, getItem(getAdapterPosition()), getAdapterPosition());
-                }
-            });
-
-            point_IMG_like.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onPointClickListener.onLikeClicked(v, getItem(getAdapterPosition()), getAdapterPosition());
                 }
             });
         }
