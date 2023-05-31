@@ -10,7 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/img_background"
-        android:alpha="0.6"
         android:orientation="vertical">
 
         <com.google.android.material.textview.MaterialTextView
@@ -72,21 +71,11 @@
             android:layout_marginHorizontal="28dp"
             tools:targetApi="o"/>
 
-<!--        <com.google.android.material.textview.MaterialTextView-->
-<!--            android:id="@+id/specificPoint_LBL_OtherDetails"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginBottom="15dp"-->
-<!--            android:textSize="22sp"-->
-<!--            android:text="Other info: "-->
-<!--            android:textColor="@color/black"-->
-<!--            android:layout_marginHorizontal="28dp"-->
-<!--            tools:targetApi="o"/>-->
 
         <ImageView
             android:id="@+id/specificPoint_IMV_imageView"
             android:layout_width="match_parent"
-            android:layout_height="340dp"
+            android:layout_height="350dp"
             android:layout_below="@id/specificPoint_LBL_PointDescription"
             android:layout_marginTop="15dp"
             android:layout_marginBottom="10dp"
