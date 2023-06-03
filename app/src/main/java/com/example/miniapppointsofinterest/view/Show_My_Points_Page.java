@@ -53,7 +53,6 @@ public class Show_My_Points_Page extends AppCompatActivity {
     private MaterialButton ShowMyPoints_BTN_return;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,8 +84,7 @@ public class Show_My_Points_Page extends AppCompatActivity {
         adapter_points.setOnPointClickListener(new Adapter_Points.OnPointClickListener() {
             @Override
             public void onClick(View view, ObjectBoundary point, int position) {
-//                Intent intent = new Intent(Show_My_Points_Page.this, Specific_Point_Page.class);
-//                startActivity(intent);
+
             }
         });
 
