@@ -40,11 +40,11 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/specificPoint_BTN_return"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_gravity="center"
             android:layout_marginHorizontal="10dp"
+            android:singleLine="true"
             android:text="Back"
             android:textAllCaps="false" />
 
