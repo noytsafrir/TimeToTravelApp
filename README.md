@@ -12,14 +12,14 @@ If you like to travel, see special places and share with others points of intere
 
   
 ## App Screenshots
-#### *Main Screen and sign up screens*
-<img src="https://github.com/noytsafrir/TimeToTravelApp/assets/58825555/eef2b767-0cbb-4868-bd98-2f6c5fc99f16"
-width = "30%">
-<img src="https://github.com/noytsafrir/TimeToTravelApp/assets/58825555/0f7d6a6b-9ee8-4aba-8488-86cf835524cd"
-width = "30%">
+#### *Main Screen, sign in and sign up screens*
+<img src="https://github.com/noytsafrir/TimeToTravelApp/assets/58825555/d8e3de01-3fc4-487e-a417-1b9f5320b483"
+width = "100%">
 
+#### *Add new point screen*
 
-
+<img src="https://github.com/noytsafrir/TimeToTravelApp/assets/58825555/fdebf769-34af-40e9-8a9b-93ef9c5c34fb"
+width = "65%">
 
 
 
